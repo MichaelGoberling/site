@@ -2,7 +2,7 @@ import './App.css';
 import { Canvas, useFrame } from '@react-three/fiber'
 import React, { useRef, useState } from 'react'
 import { OrbitControls } from '@react-three/drei'
-
+import { isMobile } from 'react-device-detect';
 
 function Circle(props) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -22,7 +22,7 @@ function Circle(props) {
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <sphereGeometry args={[6, 12, 6]} />
-      <meshStandardMaterial color={hovered ? 'blue' : 'white'} />
+      <meshStandardMaterial color={hovered || clicked ? 'white' : 'black'} />
     </mesh>
   )
 }
@@ -45,7 +45,7 @@ function Box(props) {
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <boxGeometry args={[8, 8, 8]} />
-      <meshStandardMaterial color={hovered ? 'blue' : 'white'} />
+      <meshStandardMaterial color={hovered || clicked ? 'white' : 'black'} />
     </mesh>
   )
 }
@@ -53,12 +53,12 @@ function Box(props) {
 function App() {
   return (
     <div className="App">
-      <p style={{position: 'absolute', left: '2vw', fontSize: 24, userSelect: 'none'}}>Michael Goberling</p>
-      <a style={{position: 'absolute', left: '2vw', bottom: '2vw', userSelect: 'none'}}>michael.goberling@gmail.com</a>
-      <a style={{position: 'absolute', left: '18vw', bottom: '2vw', color: 'black', userSelect: 'none', textDecoration: 'none'}} href={'tel:402-309-6170'}>402-309-6170</a>
+      <p style={{position: 'absolute', left: isMobile ? '4vw' : '2vw', fontSize: 24, userSelect: 'none'}}>Michael Goberling</p>
+      <a style={{position: 'absolute', left: isMobile ? '4vw' : '2vw', bottom: isMobile ? '4vw' : '2vw', userSelect: 'none'}}>michael.goberling@gmail.com</a>
+      <a style={{position: 'absolute', right: isMobile ? '4vw' : '2vw', bottom: isMobile ? '4vw' : '2vw', color: 'black', userSelect: 'none', textDecoration: 'none'}} href={'tel:402-309-6170'}>402-309-6170</a>
       <Canvas 
         shadows
-        camera={{ position: [12, 32, 128], fov: 30 }}
+        camera={{ position: [12, isMobile ? 96 : 32, isMobile ? 384 : 128], fov: 30 }}
         >
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
