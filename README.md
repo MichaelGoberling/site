@@ -6,3 +6,4 @@ TODO:
 
 - Change circles to company logos, add info tooltips 
 - Change square to my logo, add personal info
+- Seasonal it up
