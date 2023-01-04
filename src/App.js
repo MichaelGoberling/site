@@ -6,12 +6,12 @@ import { isMobile } from "react-device-detect";
 
 import Circle from "./shapes/Circle";
 import Box from "./shapes/Box";
-import Overlay from './Overlay';
+import Overlay from "./Overlay";
 
 function App() {
   return (
     <div className="App">
-      <Overlay/>
+      <Overlay />
 
       <Canvas
         style={{
@@ -31,7 +31,12 @@ function App() {
         <Box position={[0, 0, 0]} />
         <Circle position={[0, 0, 32]} />
         <Circle position={[0, 0, -32]} />
-        <OrbitControls autoRotate={true} autoRotateSpeed={2} />
+        <OrbitControls
+          autoRotate={true}
+          autoRotateSpeed={2}
+          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI / 2.2}
+        />
       </Canvas>
     </div>
   );
