@@ -40,20 +40,6 @@ function Overlay() {
       >
         michael.goberling@gmail.com
       </a>
-      <a
-        style={{
-          position: "absolute",
-          zIndex: 2,
-          right: isMobile ? "4vw" : "2vw",
-          bottom: isMobile ? "4vw" : "2vw",
-          color: "black",
-          userSelect: "none",
-          textDecoration: "none",
-        }}
-        href={"tel:402-309-6170"}
-      >
-        402-309-6170
-      </a>
     </div>
   );
 }
