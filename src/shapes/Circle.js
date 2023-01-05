@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { useFrame } from '@react-three/fiber'
+import { useFrame } from "@react-three/fiber";
+import { isMobile } from "react-device-detect";
 
 function Circle(props) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -15,9 +16,21 @@ function Circle(props) {
       {...props}
       ref={ref}
       scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}
+      onClick={(event) => {
+        let newClicked = !clicked
+        if (isMobile) {
+            props.setSelected(newClicked);
+        }
+        click(newClicked);
+      }}
+      onPointerOver={(event) => {
+        hover(true);
+        props.setSelected(true);
+      }}
+      onPointerOut={(event) => {
+        hover(false);
+        props.setSelected(false);
+      }}
     >
       <sphereGeometry args={[6, 12, 6]} />
       <meshStandardMaterial color={hovered || clicked ? "white" : "black"} />

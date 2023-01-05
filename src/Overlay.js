@@ -1,7 +1,7 @@
 import React from "react";
 import { isMobile } from "react-device-detect";
 
-function Overlay() {
+function Overlay(props) {
   return (
     <div>
       <p
@@ -20,7 +20,7 @@ function Overlay() {
           position: "absolute",
           zIndex: 2,
           left: isMobile ? "4vw" : "2vw",
-          top: isMobile ? '10vw' : '2.5vw',
+          top: isMobile ? "10vw" : "2.5vw",
           userSelect: "none",
         }}
       >

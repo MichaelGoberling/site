@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import { useFrame } from '@react-three/fiber'
+import { useFrame } from "@react-three/fiber";
+import { isMobile } from "react-device-detect";
 
-function Box (props) {
+function Box(props) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef();
   // Hold state for hovered and clicked events
@@ -15,14 +16,29 @@ function Box (props) {
       {...props}
       ref={ref}
       scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}
+      onClick={(event) => {
+        let newClicked = !clicked
+        if (isMobile) {
+            props.setSelected(newClicked);
+        }
+        click(newClicked);
+      }}
+      onPointerOver={(event) => {
+        hover(true);
+        props.setSelected(true);
+      }}
+      onPointerOut={(event) => {
+        hover(false);
+        props.setSelected(false);
+      }}
     >
       <boxGeometry args={[8, 8, 8]} />
-      <meshStandardMaterial color={hovered || clicked ? "white" : "black"} />
+      <meshStandardMaterial
+        opacity={0.2}
+        color={hovered || clicked ? "white" : "black"}
+      />
     </mesh>
   );
 }
 
-export default Box
+export default Box;
