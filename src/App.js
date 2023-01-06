@@ -20,13 +20,9 @@ function App() {
           style={{
             position: "absolute",
             zIndex: 2,
-            top: "40%",
-            left: "50%",
-            transform: `translate(-50%, -50%)` ,
+            right: isMobile ? "4vw" : "2vw",
+            fontSize: 24,
             userSelect: "none",
-            fontSize: 64, 
-            color: "blue",
-            textDecoration: "none",
           }}
         >
           Under Construction
@@ -40,7 +36,7 @@ function App() {
         }}
         shadows
         camera={{
-          position: [12, isMobile ? 96 : 32, isMobile ? 256 : 100],
+          position: [12, isMobile ? 96 : 32, isMobile ? 200 : 100],
           fov: 30,
         }}
       >
@@ -106,7 +102,7 @@ function App() {
           minPolarAngle={Math.PI / 2.8}
           maxPolarAngle={Math.PI / 2.2}
           minDistance={isMobile ? 128 : 64}
-          maxDistance={isMobile ? 256 : 100}
+          maxDistance={isMobile ? 200 : 100}
           enablePan={false}
         />
       </Canvas>
