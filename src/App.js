@@ -66,6 +66,9 @@ function App() {
           position: [12, isMobile ? 96 : 32, isMobile ? 200 : 100],
           fov: 30,
         }}
+        onPointerMissed={(event) => {
+          setSelected(null);
+        }}
       >
         <SoftShadows
           frustum={3.75}
@@ -85,6 +88,7 @@ function App() {
                 <Box
                   key={idx}
                   idx={idx}
+                  selected={selected}
                   setSelected={(value) => {
                     setSelected(value);
                   }}
@@ -98,6 +102,7 @@ function App() {
                 <Circle
                   key={idx}
                   idx={idx}
+                  selected={selected}
                   setSelected={(value) => {
                     setSelected(value);
                   }}
@@ -110,8 +115,8 @@ function App() {
               element = (
                 <Box
                   key={idx}
-                  setSelected={() => {
-                    setSelected(idx);
+                  setSelected={(value) => {
+                    setSelected(value);
                   }}
                   castShadow
                   position={[0,0,0]}

@@ -6,7 +6,6 @@ function Circle(props) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef();
   // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false);
   const [clicked, click] = useState(false);
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => (ref.current.rotation.y += delta / 4));
@@ -19,21 +18,19 @@ function Circle(props) {
       onClick={(event) => {
         let newClicked = !clicked
         if (isMobile) {
-            props.setSelected(props.idx);
+            props.setSelected(newClicked ? props.idx : null);
         }
         click(newClicked);
       }}
       onPointerOver={(event) => {
-        hover(true);
         props.setSelected(props.idx);
       }}
       onPointerOut={(event) => {
-        hover(false);
         props.setSelected(null);
       }}
     >
       <sphereGeometry args={[6, 12, 6]} />
-      <meshStandardMaterial color={hovered || clicked ? "white" : "black"} />
+      <meshStandardMaterial color={props.selected === props.idx ? "white" : "black"} />
     </mesh>
   );
 }
