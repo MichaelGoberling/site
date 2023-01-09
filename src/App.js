@@ -9,13 +9,40 @@ import Box from "./shapes/Box";
 import Overlay from "./Overlay";
 
 function App() {
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [shapes] = useState([
+    {
+      type: "circle",
+      position: [-32, 0, 0],
+      message: 'Food'
+    },
+    {
+      type: "circle",
+      position: [32, 0, 0],
+      message: 'Code'
+    },
+    {
+      type: "box",
+      position: [0, 0, 0],
+      message: 'About Me'
+    },
+    {
+      type: "circle",
+      position: [0, 0, 32],
+      message: 'Music'
+    },
+    {
+      type: "circle",
+      position: [0, 0, -32],
+      message: 'Mystery'
+    },
+  ]);
 
   return (
     <div className="App">
-      <Overlay/>
+      <Overlay />
 
-      {selected && (
+      {selected !== null && (
         <p
           style={{
             position: "absolute",
@@ -25,7 +52,7 @@ function App() {
             userSelect: "none",
           }}
         >
-          Under Construction
+          {shapes[selected].message}
         </p>
       )}
 
@@ -47,44 +74,52 @@ function App() {
           samples={17}
           rings={11}
         />
-        <ambientLight castShadow />
+        <ambientLight />
         <pointLight castShadow position={[10, 200, 0]} intensity={5} />
 
-        <Circle
-          setSelected={(val) => {
-            setSelected(val);
-          }}
-          castShadow
-          position={[-32, 0, 0]}
-        />
-        <Circle
-          setSelected={(val) => {
-            setSelected(val);
-          }}
-          castShadow
-          position={[32, 0, 0]}
-        />
-        <Box
-          setSelected={(val) => {
-            setSelected(val);
-          }}
-          castShadow
-          position={[0, 0, 0]}
-        />
-        <Circle
-          setSelected={(val) => {
-            setSelected(val);
-          }}
-          castShadow
-          position={[0, 0, 32]}
-        />
-        <Circle
-          setSelected={(val) => {
-            setSelected(val);
-          }}
-          castShadow
-          position={[0, 0, -32]}
-        />
+        {shapes.map((shape, idx) => {
+          let element;
+          switch (shape.type) {
+            case "box":
+              element = (
+                <Box
+                  key={idx}
+                  idx={idx}
+                  setSelected={(value) => {
+                    setSelected(value);
+                  }}
+                  castShadow
+                  position={shape.position}
+                ></Box>
+              );
+              break;
+            case "circle":
+              element = (
+                <Circle
+                  key={idx}
+                  idx={idx}
+                  setSelected={(value) => {
+                    setSelected(value);
+                  }}
+                  castShadow
+                  position={shape.position}
+                ></Circle>
+              );
+              break;
+            default:
+              element = (
+                <Box
+                  key={idx}
+                  setSelected={() => {
+                    setSelected(idx);
+                  }}
+                  castShadow
+                  position={[0,0,0]}
+                ></Box>
+              );
+          }
+          return element;
+        })}
 
         <mesh
           receiveShadow
@@ -97,7 +132,7 @@ function App() {
         </mesh>
 
         <OrbitControls
-          autoRotate={!selected}
+          autoRotate={selected === null}
           autoRotateSpeed={2}
           minPolarAngle={Math.PI / 2.8}
           maxPolarAngle={Math.PI / 2.2}

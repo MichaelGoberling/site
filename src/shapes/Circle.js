@@ -15,21 +15,21 @@ function Circle(props) {
     <mesh
       {...props}
       ref={ref}
-      scale={clicked ? 1.5 : 1}
+      scale={1}
       onClick={(event) => {
         let newClicked = !clicked
         if (isMobile) {
-            props.setSelected(newClicked);
+            props.setSelected(props.idx);
         }
         click(newClicked);
       }}
       onPointerOver={(event) => {
         hover(true);
-        props.setSelected(true);
+        props.setSelected(props.idx);
       }}
       onPointerOut={(event) => {
         hover(false);
-        props.setSelected(false);
+        props.setSelected(null);
       }}
     >
       <sphereGeometry args={[6, 12, 6]} />
